@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">Ninety Percent</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="dresses">DRESSES</string>
+    <string name="dress_description">Easy, effortless and versatile, we\'ve hot dresses for every occasion. Choose from form-fitting jersey styles, oversized sweater dresses and party-ready sustainable veolur</string>
+</resources>
