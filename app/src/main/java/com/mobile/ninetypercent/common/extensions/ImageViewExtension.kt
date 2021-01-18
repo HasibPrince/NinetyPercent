@@ -1,6 +1,9 @@
 package com.mobile.ninetypercent.common.extensions
 
+import android.graphics.Color
 import android.graphics.drawable.Drawable
+import android.graphics.drawable.GradientDrawable
+import android.view.View
 import android.widget.ImageView
 import androidx.annotation.DrawableRes
 import androidx.databinding.BindingAdapter
@@ -27,4 +30,11 @@ fun ImageView.load(@DrawableRes resource: Int) {
 @BindingAdapter("load")
 fun ImageView.load(drawable: Drawable) {
     ImageLoader.instance?.load(context, drawable, this)
+}
+
+@BindingAdapter("loadColor")
+fun View.loadColor(color: String) {
+    val background = this.background as GradientDrawable
+    background.setColor(Color.parseColor(color))
+//    this.setBackgroundColor(Color.parseColor("#686868"))
 }

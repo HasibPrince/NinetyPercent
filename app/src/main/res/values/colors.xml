@@ -11,4 +11,7 @@
     <color name="darkgray">#555555</color>
     <color name="lightGray">#AAAAAA</color>
     <color name="veryLightGray">#f2f2f2</color>
+    <color name="yellow">#FFEB3B</color>
+    <color name="red">#F44336</color>
+    <color name="pink">#9C27B0</color>
 </resources>
