@@ -1,13 +1,17 @@
 package com.mobile.ninetypercent.ui.adapters
 
-import android.content.Context
+import android.graphics.Typeface
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.mobile.ninetypercent.data.Value
 import com.mobile.ninetypercent.databinding.ItemCategoryBinding
 
-class CategoryAdapter(var categoryList: List<String>) : RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
+class CategoryAdapter(
+    var categoryList: List<Pair<Value, Boolean>>,
+    private val clickListener: (Value, Boolean) -> Unit
+) :
+    RecyclerView.Adapter<CategoryAdapter.CategoryViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): CategoryViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -20,12 +24,25 @@ class CategoryAdapter(var categoryList: List<String>) : RecyclerView.Adapter<Cat
     }
 
     override fun onBindViewHolder(holder: CategoryViewHolder, position: Int) {
-        holder.bind(categoryList[position])
+        holder.bind(categoryList[position], clickListener)
     }
 
-    class CategoryViewHolder(private val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
-        fun bind(category: String) {
-            binding.categoryString = category
+    class CategoryViewHolder(private val binding: ItemCategoryBinding) :
+        RecyclerView.ViewHolder(binding.root) {
+        fun bind(
+            category: Pair<Value, Boolean>,
+            clickListener: (Value, Boolean) -> Unit
+        ) {
+            binding.categoryString = category.first.value() as String
+            if (category.second) {
+                binding.category.typeface = Typeface.DEFAULT_BOLD
+            } else {
+                binding.category.typeface = Typeface.DEFAULT
+            }
+
+            binding.root.setOnClickListener {
+                clickListener(category.first, !category.second)
+            }
         }
     }
 }

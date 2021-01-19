@@ -48,6 +48,9 @@ class DressAdapter(private val dressViewModel: DressViewModel) : ListAdapter<Dre
             itemLeftMarginInDp: Int, itemBottomMarginInDp: Int
         ) {
             recyclerView.layoutManager = layoutManager
+            for(index in 0 until recyclerView.itemDecorationCount){
+                recyclerView.removeItemDecorationAt(index)
+            }
             recyclerView.addItemDecoration(
                 ItemDecoration(
                     ViewUtils.dpToPx(binding.root.context, itemBottomMarginInDp),

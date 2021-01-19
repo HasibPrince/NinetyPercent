@@ -1,5 +1,6 @@
 package com.mobile.ninetypercent.ui
 
+import android.graphics.Rect
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.activityViewModels
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
@@ -41,20 +43,36 @@ class HomeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        categoryAdapter =
-            CategoryAdapter(filterViewModel.getStyleFilterString())
-        val layoutManager = FlexboxLayoutManager(context)
-        layoutManager.flexDirection = FlexDirection.ROW
-        layoutManager.justifyContent = JustifyContent.CENTER
-        binding.filterOptions.layoutManager = layoutManager
-        binding.filterOptions.adapter = categoryAdapter
 
+        setupStyleFilters()
         setupDressList()
         dressViewModel.init()
 
         filterViewModel.filterUpdateLiveData.observe(viewLifecycleOwner, EventObserver {
             dressViewModel.updateDressLiveData()
         })
+    }
+
+    private fun setupStyleFilters() {
+        categoryAdapter =
+            CategoryAdapter(filterViewModel.getStyleFilters()) { value, isSelected ->
+                filterViewModel.updateSelectedFilter(value, isSelected)
+                categoryAdapter.categoryList = filterViewModel.getStyleFilters()
+                categoryAdapter.notifyDataSetChanged()
+            }
+
+        val layoutManager = FlexboxLayoutManager(context)
+        layoutManager.flexDirection = FlexDirection.ROW
+        layoutManager.justifyContent = JustifyContent.CENTER
+        binding.filterOptions.layoutManager = layoutManager
+        binding.filterOptions.addItemDecoration(
+            CategoryItemDecoration(
+                ViewUtils.dpToPx(requireContext(), 30),
+                ViewUtils.dpToPx(requireContext(), 15)
+            )
+        )
+
+        binding.filterOptions.adapter = categoryAdapter
     }
 
     private fun setupDressList() {
@@ -66,5 +84,21 @@ class HomeFragment : Fragment() {
             )
         )
         binding.dressList.adapter = DressAdapter(dressViewModel)
+    }
+}
+
+class CategoryItemDecoration(leftSpace: Int, bottomSpace: Int) : ItemDecoration(bottomSpace, leftSpace) {
+    override fun getItemOffsets(
+        outRect: Rect,
+        view: View,
+        parent: RecyclerView,
+        state: RecyclerView.State
+    ) {
+        if(parent.getChildAdapterPosition(view) == 0) {
+            outRect.left = leftSpace / 2
+            outRect.bottom = bottomSpace
+            return
+        }
+        super.getItemOffsets(outRect, view, parent, state)
     }
 }
