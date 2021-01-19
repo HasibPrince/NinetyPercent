@@ -5,6 +5,7 @@ import android.os.Handler
 import android.os.Looper
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.GravityCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -18,8 +19,10 @@ import com.mobile.ninetypercent.databinding.ActivityMainBinding
 import com.mobile.ninetypercent.ui.adapters.ColorAdapter
 import com.mobile.ninetypercent.ui.adapters.ItemDecoration
 import com.mobile.ninetypercent.ui.adapters.SizeAdapter
+import com.mobile.ninetypercent.ui.utils.EventObserver
 import com.mobile.ninetypercent.ui.utils.ViewUtils
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -45,6 +48,30 @@ class MainActivity : AppCompatActivity() {
         setupStyleFilter()
         setupColorFilter()
         setupMaterialFilter()
+
+        filterViewModel.filterClickEvent.observe(this, EventObserver {
+            openDrawer()
+        })
+
+        binding.menu.setOnClickListener {
+            handleDrawer()
+        }
+    }
+
+    private fun handleDrawer() {
+        if (binding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            closeDrawer()
+        } else {
+            openDrawer()
+        }
+    }
+
+    private fun closeDrawer() {
+        binding.drawerLayout.closeDrawer(GravityCompat.START, true)
+    }
+
+    private fun openDrawer() {
+        binding.drawerLayout.openDrawer(GravityCompat.START, true)
     }
 
     private fun setupSizeFilter() {

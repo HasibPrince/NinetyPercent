@@ -5,9 +5,10 @@ import com.mobile.ninetypercent.common.extensions.toJsonString
 import com.mobile.ninetypercent.data.*
 
 data class Dress(
-    val name: String, val price: String, val colors: List<Colors>,
+    val name: String, val price: Double, val colors: List<Colors>,
     val styles: List<Style>, val sizes: List<Sizes>,
-    val shape: Shapes, val material: Material
+    val shape: Shapes, val material: Material,
+    val image: String = "https://rukminim1.flixcart.com/image/714/857/jeiukcw0/dress/g/z/a/m-20160520-xoxo-original-imaemtxy9ts9rsu9.jpeg"
 ) {
     companion object {
         val DIFF_ITEM_CALLBACK = object : DiffUtil.ItemCallback<Dress>() {
@@ -16,7 +17,7 @@ data class Dress(
             }
 
             override fun areContentsTheSame(oldItem: Dress, newItem: Dress): Boolean {
-                return oldItem.toJsonString().contentEquals(newItem.toJsonString())
+                return oldItem.name == newItem.name
             }
 
         }

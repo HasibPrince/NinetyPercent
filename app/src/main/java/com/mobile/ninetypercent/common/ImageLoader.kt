@@ -18,7 +18,7 @@ class ImageLoader {
         imageView: ImageView
     ) {
         Glide.with(context)
-            .load("https://cdn.shopify.com/s/files/1/0283/1338/7053/files/dresses_aw20_720x.jpg?v=1602087939")
+            .load(url)
             .fitCenter()
             .into(imageView)
     }
@@ -54,6 +54,7 @@ class ImageLoader {
     ) {
         Glide.with(context)
             .load(drawable)
+            .fitCenter()
             .into(imageView)
     }
 

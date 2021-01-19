@@ -4,6 +4,7 @@ import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
+import com.mobile.ninetypercent.R
 import com.mobile.ninetypercent.data.Value
 import com.mobile.ninetypercent.domain.FilterUseCase
 import com.mobile.ninetypercent.ui.utils.Event
@@ -14,6 +15,10 @@ class FilterViewModel @ViewModelInject constructor(private val filterUseCase: Fi
     private val _filterUpdateLiveData= MutableLiveData<Event<Any>>()
     val filterUpdateLiveData: LiveData<Event<Any>>
     get() = _filterUpdateLiveData
+
+    private val _filterClickEvent= MutableLiveData<Event<Any>>()
+    val filterClickEvent: LiveData<Event<Any>>
+        get() = _filterClickEvent
 
     fun getSizeFilters(): List<Pair<Value, Boolean>> {
         return filterUseCase.getSizeFilters()
@@ -42,5 +47,9 @@ class FilterViewModel @ViewModelInject constructor(private val filterUseCase: Fi
 
     fun getMaterialFilters(): List<Pair<Value, Boolean>> {
         return filterUseCase.getMaterialFilters()
+    }
+
+    fun onFilterClicked() {
+        _filterClickEvent.value = Event(Any())
     }
 }

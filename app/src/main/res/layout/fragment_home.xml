@@ -7,6 +7,9 @@
         <variable
             name="dressViewModel"
             type="com.mobile.ninetypercent.ui.DressViewModel" />
+        <variable
+            name="filterViewModel"
+            type="com.mobile.ninetypercent.ui.FilterViewModel" />
     </data>
 
     <androidx.core.widget.NestedScrollView
@@ -183,16 +186,58 @@
 
             </androidx.constraintlayout.widget.ConstraintLayout>
 
+            <TextView
+                android:id="@+id/filter"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Filter"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/futurab"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                android:background="@drawable/bg_filter_text"
+                android:onClick="@{() -> filterViewModel.onFilterClicked()}"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintRight_toLeftOf="@id/sort"
+                app:layout_constraintTop_toBottomOf="@id/banner"/>
+
+            <TextView
+                android:id="@+id/sort"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sort"
+                android:textSize="15sp"
+                android:textColor="@color/black"
+                android:fontFamily="@font/futurab"
+                android:background="@drawable/bg_filter_text"
+                android:onClick="@{() -> dressViewModel.onSortEventClicked()}"
+                android:layout_marginTop="10dp"
+                android:paddingLeft="20dp"
+                android:paddingRight="20dp"
+                android:paddingTop="10dp"
+                android:paddingBottom="10dp"
+                android:gravity="center"
+                android:textAlignment="center"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintLeft_toRightOf="@id/filter"
+                app:layout_constraintTop_toBottomOf="@id/banner"/>
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/dressList"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:dresses="@{dressViewModel.dressLiveData}"
-                android:layout_marginTop="5dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/banner" />
+                app:layout_constraintTop_toBottomOf="@+id/filter" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.core.widget.NestedScrollView>

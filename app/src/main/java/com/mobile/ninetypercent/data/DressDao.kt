@@ -6,14 +6,16 @@ object DressDao {
     var filteredDresses = listOf<Dress>()
     private set
 
+    private var selectedSort = Sort.A_TO_Z
+
     init {
         filteredDresses = DressCollection.dressCollection
     }
 
     fun filterDressesWithFilter(): List<Dress> {
         filteredDresses = DressCollection.dressCollection.filter { dress ->
-            val selectedFilters = SelectedFilters.selectedFilters.values.filter {
-                    filter -> filter.isNotEmpty()
+            val selectedFilters = SelectedFilters.selectedFilters.values.filter { filter ->
+                filter.isNotEmpty()
             }
             val totalFilter = selectedFilters.size
             var filterMatched: Int = 0
@@ -42,10 +44,21 @@ object DressDao {
 
             totalFilter <= filterMatched
         }.toMutableList()
+        updateDressWithSelectedSort()
         return filteredDresses
     }
 
+    fun updateSelectedSort(sortType: Sort) {
+        selectedSort = sortType
+        updateDressWithSelectedSort()
+    }
 
-
-
+    private fun updateDressWithSelectedSort() {
+        filteredDresses = when (selectedSort) {
+            Sort.A_TO_Z -> filteredDresses.sortedBy { dress -> dress.name }
+            Sort.Z_TO_A -> filteredDresses.sortedByDescending { dress -> dress.name }
+            Sort.LOW_TO_HIGH -> filteredDresses.sortedBy { dress -> dress.price }
+            Sort.HIGH_TO_LOW -> filteredDresses.sortedByDescending { dress -> dress.price }
+        }
+    }
 }

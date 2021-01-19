@@ -7,14 +7,17 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.mobile.ninetypercent.data.Colors
+import com.mobile.ninetypercent.R
+import com.mobile.ninetypercent.common.extensions.load
 import com.mobile.ninetypercent.data.Value
 import com.mobile.ninetypercent.data.model.Dress
 import com.mobile.ninetypercent.databinding.ItemDressBinding
 import com.mobile.ninetypercent.ui.DressViewModel
 import com.mobile.ninetypercent.ui.utils.ViewUtils
 
-class DressAdapter(private val dressViewModel: DressViewModel) : ListAdapter<Dress, DressAdapter.DressViewHolder>(Dress.DIFF_ITEM_CALLBACK) {
+class DressAdapter(private val dressViewModel: DressViewModel,
+                   private val clickListener: (Dress) -> Unit) :
+    ListAdapter<Dress, DressAdapter.DressViewHolder>(Dress.DIFF_ITEM_CALLBACK) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): DressViewHolder {
         val inflater = LayoutInflater.from(parent.context)
         val binding = ItemDressBinding.inflate(inflater)
@@ -23,16 +26,24 @@ class DressAdapter(private val dressViewModel: DressViewModel) : ListAdapter<Dre
 
     override fun onBindViewHolder(holder: DressViewHolder, position: Int) {
         val dress = getItem(position)
-        holder.bind(dress, dressViewModel.getDressColorsWithSelected(dress))
+        holder.bind(dress, dressViewModel.getDressColorsWithSelected(dress), clickListener)
     }
 
     class DressViewHolder(val binding: ItemDressBinding) : RecyclerView.ViewHolder(binding.root) {
-        fun bind(dress: Dress, colors: List<Pair<Value,Boolean>>) {
+        fun bind(
+            dress: Dress,
+            colors: List<Pair<Value, Boolean>>,
+            clickListener: (Dress) -> Unit
+        ) {
             binding.dress = dress
+            binding.dressImage.load(R.drawable.camis_black)
             setupColorFilter(colors)
+            binding.root.setOnClickListener {
+                clickListener(dress)
+            }
         }
 
-        private fun setupColorFilter(colors: List<Pair<Value,Boolean>>) {
+        private fun setupColorFilter(colors: List<Pair<Value, Boolean>>) {
             val colorAdapter = ColorDressAdapter(colors)
             val flexboxLayoutManager = FlexboxLayoutManager(binding.root.context)
             flexboxLayoutManager.flexDirection = FlexDirection.ROW
@@ -48,7 +59,7 @@ class DressAdapter(private val dressViewModel: DressViewModel) : ListAdapter<Dre
             itemLeftMarginInDp: Int, itemBottomMarginInDp: Int
         ) {
             recyclerView.layoutManager = layoutManager
-            for(index in 0 until recyclerView.itemDecorationCount){
+            for (index in 0 until recyclerView.itemDecorationCount) {
                 recyclerView.removeItemDecorationAt(index)
             }
             recyclerView.addItemDecoration(

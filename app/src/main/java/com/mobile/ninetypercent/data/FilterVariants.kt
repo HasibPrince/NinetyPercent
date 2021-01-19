@@ -119,7 +119,7 @@ enum class Sizes : Value {
     }
 }
 
-enum class Material: Value {
+enum class Material : Value {
     COTTON {
         override fun value(): String {
             return "Organic Cotton"
@@ -130,6 +130,10 @@ enum class Material: Value {
             return "Tencel"
         }
     }
+}
+
+enum class Sort {
+    A_TO_Z, Z_TO_A, LOW_TO_HIGH, HIGH_TO_LOW
 }
 
 interface Value {

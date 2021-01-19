@@ -5,7 +5,6 @@ import timber.log.Timber
 
 object SelectedFilters {
     val selectedFilters = mutableMapOf<String, MutableList<Value>>()
-
     fun updateSelectedFilter(filterOption: Value, selected: Boolean) {
         when (filterOption) {
             is Shapes -> {
@@ -28,7 +27,7 @@ object SelectedFilters {
 
     private fun updateSelectedFilter(key: String, filterOption: Value, isSelected: Boolean) {
         if (selectedFilters.containsKey(key)) {
-            if(isSelected) {
+            if (isSelected) {
                 selectedFilters[key]?.add(filterOption)
             } else {
                 selectedFilters[key]?.remove(filterOption)
