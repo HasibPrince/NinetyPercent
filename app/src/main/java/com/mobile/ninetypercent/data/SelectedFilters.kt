@@ -1,10 +1,14 @@
 package com.mobile.ninetypercent.data
 
+import androidx.annotation.VisibleForTesting
 import com.mobile.ninetypercent.common.extensions.toJsonString
 import timber.log.Timber
 
 object SelectedFilters {
-    val selectedFilters = mutableMapOf<String, MutableList<Value>>()
+    var selectedFilters = mutableMapOf<String, MutableList<Value>>()
+    @VisibleForTesting
+    set
+
     fun updateSelectedFilter(filterOption: Value, selected: Boolean) {
         when (filterOption) {
             is Shapes -> {

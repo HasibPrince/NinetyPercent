@@ -23,6 +23,9 @@ allprojects {
 
 ext {
     nav_version = "2.3.1"
+    robolectricVersion = '4.3.1'
+    archTestingVersion = '2.0.0'
+    androidXTestExtKotlinRunnerVersion = '1.1.1'
 }
 
 task clean(type: Delete) {

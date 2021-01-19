@@ -9,10 +9,11 @@ import com.mobile.ninetypercent.data.Sort
 import com.mobile.ninetypercent.data.Value
 import com.mobile.ninetypercent.data.model.Dress
 import com.mobile.ninetypercent.domain.DressUseCase
+import com.mobile.ninetypercent.domain.IDressUseCase
 import com.mobile.ninetypercent.ui.utils.Event
 import timber.log.Timber
 
-class DressViewModel @ViewModelInject constructor(private val dressUseCase: DressUseCase) : ViewModel() {
+class DressViewModel @ViewModelInject constructor(private val dressUseCase: IDressUseCase) : ViewModel() {
 
     private val _dressLiveData = MutableLiveData<List<Dress>>()
     val dressLiveData: LiveData<List<Dress>>
