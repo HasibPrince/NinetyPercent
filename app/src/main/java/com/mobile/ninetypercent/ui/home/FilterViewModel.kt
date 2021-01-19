@@ -1,4 +1,4 @@
-package com.mobile.ninetypercent.ui
+package com.mobile.ninetypercent.ui.home
 
 import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.LiveData

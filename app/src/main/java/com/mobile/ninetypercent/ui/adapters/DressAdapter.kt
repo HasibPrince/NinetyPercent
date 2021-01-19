@@ -7,12 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
-import com.mobile.ninetypercent.R
-import com.mobile.ninetypercent.common.extensions.load
 import com.mobile.ninetypercent.data.Value
 import com.mobile.ninetypercent.data.model.Dress
 import com.mobile.ninetypercent.databinding.ItemDressBinding
-import com.mobile.ninetypercent.ui.DressViewModel
+import com.mobile.ninetypercent.ui.home.DressViewModel
 import com.mobile.ninetypercent.ui.utils.ViewUtils
 
 class DressAdapter(private val dressViewModel: DressViewModel,
@@ -36,7 +34,7 @@ class DressAdapter(private val dressViewModel: DressViewModel,
             clickListener: (Dress) -> Unit
         ) {
             binding.dress = dress
-            binding.dressImage.load(R.drawable.camis_black)
+//            binding.dressImage.load(R.drawable.camis_black)
             setupColorFilter(colors)
             binding.root.setOnClickListener {
                 clickListener(dress)

@@ -6,10 +6,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.mobile.ninetypercent.data.Value
 import com.mobile.ninetypercent.databinding.ItemNameCheckboxBinding
 
-class SizeAdapter(
+class FilterAdapter(
     var filterItems: List<Pair<Value, Boolean>>,
     val selectListener: (Value, Boolean) -> Unit
-) : RecyclerView.Adapter<SizeAdapter.SizeViewHolder>() {
+) : RecyclerView.Adapter<FilterAdapter.SizeViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SizeViewHolder {
         val inflater = LayoutInflater.from(parent.context)

@@ -1,4 +1,4 @@
-package com.mobile.ninetypercent.ui
+package com.mobile.ninetypercent.ui.home
 
 import android.os.Bundle
 import android.os.Handler
@@ -18,19 +18,18 @@ import com.mobile.ninetypercent.data.Value
 import com.mobile.ninetypercent.databinding.ActivityMainBinding
 import com.mobile.ninetypercent.ui.adapters.ColorAdapter
 import com.mobile.ninetypercent.ui.adapters.ItemDecoration
-import com.mobile.ninetypercent.ui.adapters.SizeAdapter
+import com.mobile.ninetypercent.ui.adapters.FilterAdapter
 import com.mobile.ninetypercent.ui.utils.EventObserver
 import com.mobile.ninetypercent.ui.utils.ViewUtils
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.activity_main.*
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
     lateinit var binding: ActivityMainBinding
-    lateinit var sizeAdapter: SizeAdapter
-    lateinit var shapeAdapter: SizeAdapter
-    lateinit var styleAdapter: SizeAdapter
-    lateinit var materialAdapter: SizeAdapter
+    lateinit var filterAdapter: FilterAdapter
+    lateinit var shapeAdapter: FilterAdapter
+    lateinit var styleAdapter: FilterAdapter
+    lateinit var materialAdapter: FilterAdapter
     lateinit var colorAdapter: ColorAdapter
     private val filterViewModel: FilterViewModel by viewModels()
 
@@ -75,17 +74,17 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupSizeFilter() {
-        sizeAdapter = SizeAdapter(filterViewModel.getSizeFilters()) { filter, isSelected ->
+        filterAdapter = FilterAdapter(filterViewModel.getSizeFilters()) { filter, isSelected ->
             handleFilterSelection(filter, isSelected)
         }
         setupRecyclerView(
-            binding.sizeOptions, sizeAdapter, GridLayoutManager(this, 2),
+            binding.sizeOptions, filterAdapter, GridLayoutManager(this, 2),
             0, 20
         )
     }
 
     private fun setupShapeFilter() {
-        shapeAdapter = SizeAdapter(filterViewModel.getShapeFilters()) { filter, isSelected ->
+        shapeAdapter = FilterAdapter(filterViewModel.getShapeFilters()) { filter, isSelected ->
             handleFilterSelection(filter, isSelected)
         }
         setupRecyclerView(
@@ -98,7 +97,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupMaterialFilter() {
-        materialAdapter = SizeAdapter(filterViewModel.getMaterialFilters()) { filter, isSelected ->
+        materialAdapter = FilterAdapter(filterViewModel.getMaterialFilters()) { filter, isSelected ->
             handleFilterSelection(filter, isSelected)
         }
         setupRecyclerView(
@@ -111,7 +110,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setupStyleFilter() {
-        styleAdapter = SizeAdapter(filterViewModel.getStyleFilters()) { filter, isSelected ->
+        styleAdapter = FilterAdapter(filterViewModel.getStyleFilters()) { filter, isSelected ->
             handleFilterSelection(filter, isSelected)
         }
         setupRecyclerView(
@@ -167,8 +166,8 @@ class MainActivity : AppCompatActivity() {
             styleAdapter.filterItems = filterViewModel.getStyleFilters()
             styleAdapter.notifyDataSetChanged()
 
-            sizeAdapter.filterItems = filterViewModel.getSizeFilters()
-            sizeAdapter.notifyDataSetChanged()
+            filterAdapter.filterItems = filterViewModel.getSizeFilters()
+            filterAdapter.notifyDataSetChanged()
 
             colorAdapter.sizeItems = filterViewModel.getColorFilters()
             colorAdapter.notifyDataSetChanged()

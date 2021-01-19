@@ -3,6 +3,7 @@ package com.mobile.ninetypercent.ui
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.mobile.ninetypercent.data.*
 import com.mobile.ninetypercent.data.model.Dress
+import com.mobile.ninetypercent.ui.home.DressViewModel
 import getOrAwaitValue
 import org.hamcrest.Matchers.`is`
 import org.junit.Test
@@ -41,7 +42,8 @@ class DressViewModelTest {
     @Before
     fun before() {
         val dressUseCase = FakeDressUseCase(dresses, selectedFilters)
-        dressViewModel = DressViewModel(dressUseCase)
+        dressViewModel =
+            DressViewModel(dressUseCase)
         dressViewModel.init()
     }
 

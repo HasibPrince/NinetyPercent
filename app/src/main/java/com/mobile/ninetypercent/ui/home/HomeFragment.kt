@@ -1,4 +1,4 @@
-package com.mobile.ninetypercent.ui
+package com.mobile.ninetypercent.ui.home
 
 import android.graphics.Rect
 import android.os.Bundle
@@ -15,7 +15,6 @@ import com.google.android.flexbox.FlexDirection
 import com.google.android.flexbox.FlexboxLayoutManager
 import com.google.android.flexbox.JustifyContent
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
-import com.mobile.ninetypercent.R
 import com.mobile.ninetypercent.databinding.DialogSortSelectionBinding
 import com.mobile.ninetypercent.databinding.FragmentHomeBinding
 import com.mobile.ninetypercent.ui.adapters.CategoryAdapter
@@ -24,7 +23,6 @@ import com.mobile.ninetypercent.ui.adapters.ItemDecoration
 import com.mobile.ninetypercent.ui.utils.EventObserver
 import com.mobile.ninetypercent.ui.utils.ViewUtils
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.android.synthetic.main.dialog_sort_selection.view.*
 
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
