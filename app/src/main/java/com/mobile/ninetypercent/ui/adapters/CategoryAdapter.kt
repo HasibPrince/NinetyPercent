@@ -25,7 +25,7 @@ class CategoryAdapter(var categoryList: List<String>) : RecyclerView.Adapter<Cat
 
     class CategoryViewHolder(private val binding: ItemCategoryBinding): RecyclerView.ViewHolder(binding.root) {
         fun bind(category: String) {
-            binding.category.text = category
+            binding.categoryString = category
         }
     }
 }

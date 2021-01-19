@@ -3,10 +3,13 @@ package com.mobile.ninetypercent.data
 import com.mobile.ninetypercent.data.model.Dress
 
 object DressDao {
-    private var filteredDresses = mutableListOf<Dress>()
+    var filteredDresses = listOf<Dress>()
+    private set
+
     init {
         filteredDresses = DressCollection.dressCollection
     }
+
     fun filterDressesWithFilter(): List<Dress> {
         filteredDresses = DressCollection.dressCollection.filter { dress ->
             val selectedFilters = SelectedFilters.selectedFilters.values.filter {

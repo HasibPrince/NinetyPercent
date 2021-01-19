@@ -25,6 +25,14 @@ class FilterUseCase @Inject constructor() {
         }
     }
 
+    fun getStyleFiltersStrings(): List<String> {
+        return getFilters(Style::class.simpleName ?: ""){
+            it.styles
+        }.map {
+            it.first.value() as String
+        }
+    }
+
     fun getColorFilters(): List<Pair<Value, Boolean>> {
         return getFilters(Colors::class.simpleName ?: ""){
             it.colors
